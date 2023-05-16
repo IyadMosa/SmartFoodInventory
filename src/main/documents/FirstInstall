@@ -1,0 +1,7 @@
+##Java JDK:
+Project Settings --> Project --> SDK: 11
+
+##Maven 3.6.3:
+you should add maven 3.6.3 to project
+Settings --> Build --> Build Tools --> Maven --> Maven home path
+run "mvn clean install" command 
