@@ -1,0 +1,11 @@
+SmartFoodInventory is a user-friendly mobile app designed to help individuals efficiently manage and track their food inventory. With this app, users can easily keep tabs on the food items they have, their expiration dates, and quantities, all in one convenient place.
+
+The app offers a range of features to streamline food inventory management. Users can add products to their inventory by scanning barcodes or capturing images of the items. The app utilizes advanced image recognition and OpenAI APIs to automatically fetch product information such as name, manufacturer, and production country.
+
+One of the key functionalities of SmartFoodInventory is its expiration date tracking. Users receive timely notifications and color-coded indicators to ensure they consume or share products before they expire, reducing food waste. The app also allows users to set personalized notification preferences based on their preferred lead time.
+
+In addition to tracking, SmartFoodInventory enables users to share their surplus food products with others in their community or nearby neighbors. By initiating the sharing process within the app, users can select recipients, specify quantities, and even earn points for their generosity. The app incorporates a point-based system where users can accumulate points by sharing products, viewing advertisements, and participating in other engagement activities.
+
+To enhance the user experience, SmartFoodInventory suggests recipes based on the available ingredients in a user's inventory. Users can discover new and creative ways to utilize their food items, reducing waste and maximizing their culinary options. Detailed recipe information, including ingredients and preparation steps, is provided to guide users through the cooking process.
+
+With SmartFoodInventory, users can efficiently manage their food inventory, reduce waste, and foster a sense of community through sharing. The app's intuitive interface, combined with its smart tracking and sharing capabilities, empowers individuals to make smarter choices about their food consumption while promoting sustainability and resourcefulness.
