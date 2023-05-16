@@ -1,32 +1,31 @@
 Food Inventory Management:
-
 Description: Users can easily manage their food inventory within the app, keeping track of the products they have on hand.
 Details: Users can add food items to their inventory by scanning barcodes or capturing product images. The app utilizes image recognition and OpenAI APIs to fetch relevant product information such as name, manufacturer, and production country. Users can view and organize their inventory, including details like quantity, expiration date, and category.
-Expiration Date Tracking:
 
+Expiration Date Tracking:
 Description: The app helps users keep track of expiration dates, ensuring timely consumption or sharing of products.
 Details: SmartFoodInventory sends notifications and provides color-coded indicators to alert users about approaching or expired items. Users can customize notification preferences based on their desired lead time. The feature helps prevent food waste by ensuring items are used before they expire.
-Product Sharing:
 
+Product Sharing:
 Description: Users can share surplus food items with others, fostering community engagement and reducing waste.
 Details: Users initiate the sharing process within the app, selecting recipients and specifying quantities to be shared. The app facilitates the transfer of products between users, promoting sharing and reducing food waste. Users earn points for sharing, fostering a sense of generosity and participation.
-Recipe Suggestions:
 
+Recipe Suggestions:
 Description: SmartFoodInventory provides recipe recommendations based on the ingredients available in a user's inventory.
 Details: Users can discover and explore new recipes that utilize their existing food items. The app suggests recipes tailored to the ingredients present in the user's inventory, helping them make the most of their resources. Detailed recipe information, including ingredients, preparation steps, and cooking times, is provided.
-Point-Based System:
 
+Point-Based System:
 Description: The app incorporates a point system to incentivize user engagement and reward positive actions.
 Details: Users earn points for various activities, such as sharing products, viewing advertisements, or participating in challenges. Points can be used to unlock rewards, access premium features, or redeem offers within the app. The point system adds a gamified element and encourages users to actively participate.
-Usage Tracking and Alerts:
 
+Usage Tracking and Alerts:
 Description: SmartFoodInventory allows users to track their product usage and sends alerts when items are running low.
 Details: Users can update the app when they use a certain quantity of a food item, ensuring accurate inventory tracking. The app provides notifications or reminders when items are running low, prompting users to restock or plan their meals accordingly.
-Customizable Categories and Labels:
 
+Customizable Categories and Labels:
 Description: Users can categorize and label their food items based on preferences or storage locations.
 Details: The app allows users to create customizable categories (e.g., fruits, vegetables, dairy) or labels (e.g., pantry, fridge) to organize their inventory effectively. This feature enables users to locate items easily and maintain an organized food store.
-User Profiles and Community Engagement:
 
+User Profiles and Community Engagement:
 Description: Users can create profiles, connect with others, and engage with the SmartFoodInventory community.
 Details: Users have individual profiles where they can view their inventory, track their points, and participate in community discussions. The app provides features for users to connect, share tips and experiences, and collaborate in reducing food waste collectively.
