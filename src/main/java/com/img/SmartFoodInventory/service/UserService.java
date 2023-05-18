@@ -1,25 +1,34 @@
 package com.img.SmartFoodInventory.service;
 
+import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.img.SmartFoodInventory.dto.UserDTO;
 import com.img.SmartFoodInventory.model.MyUser;
 import com.img.SmartFoodInventory.repository.UserRepository;
-import javassist.NotFoundException;
+import org.modelmapper.ModelMapper;
+import org.springframework.core.io.ClassPathResource;
+import org.springframework.core.io.Resource;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
 public class UserService implements UserDetailsService {
     private final UserRepository userRepository;
+    private final ModelMapper modelMapper;
 
-    public UserService(UserRepository userRepository) {
+    public UserService(UserRepository userRepository, ModelMapper modelMapper) {
         this.userRepository = userRepository;
+        this.modelMapper = modelMapper;
     }
 
     @Override
@@ -29,60 +38,44 @@ public class UserService implements UserDetailsService {
     }
 
     public UserDTO createUser(UserDTO userDTO) {
-        MyUser user = mapToUserEntity(userDTO);
+        MyUser user = modelMapper.map(userDTO, MyUser.class);
+        user.setJoinAt(new Date());
         MyUser savedUser = userRepository.save(user);
-        return mapToUserDTO(savedUser);
+        return modelMapper.map(savedUser, UserDTO.class);
     }
 
-    public UserDTO getUserById(Long userId) throws NotFoundException {
-        MyUser user = userRepository.findById(userId)
-                .orElseThrow(() -> new NotFoundException("User not found with ID: " + userId));
-        return mapToUserDTO(user);
-    }
-
-    public UserDTO getUserByName(String name)  {
+    public UserDTO getUserByName(String name) {
         MyUser user = userRepository.getByUsername(name);
-        if(user == null){
+        if (user == null) {
             return null;
         }
-        return mapToUserDTO(user);
+        return modelMapper.map(user, UserDTO.class);
     }
-
-    // Other service methods...
-
-    private MyUser mapToUserEntity(UserDTO userDTO) {
-        MyUser user = new MyUser();
-        user.setUsername(userDTO.getUsername());
-        user.setPassword(userDTO.getPassword());
-        user.setEmail(userDTO.getEmail());
-        user.setPhoneNumber(userDTO.getPhoneNumber());
-        user.setJoinAt(userDTO.getJoinAt());
-        user.setPoints(userDTO.getPoints());
-
-        return user;
-    }
-
-    private UserDTO mapToUserDTO(MyUser user) {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setId(user.getId());
-        userDTO.setUsername(user.getUsername());
-        userDTO.setPassword(user.getPassword());
-        userDTO.setEmail(user.getEmail());
-        userDTO.setPhoneNumber(user.getPhoneNumber());
-        userDTO.setJoinAt(user.getJoinAt());
-        userDTO.setPoints(user.getPoints());
-
-        return userDTO;
-    }
-
-    public void setUserAsLoggedStatus(String username, boolean b) {
-    }
-
 
     public List<UserDTO> getAllUsers() {
         List<MyUser> users = userRepository.findAll();
         return users.stream()
-                .map(this::mapToUserDTO)
+                .map(user -> modelMapper.map(user, UserDTO.class))
                 .collect(Collectors.toList());
+    }
+
+    public MyUser findByUsername(String username) {
+        MyUser user = userRepository.getByUsername(username);
+        return user;
+    }
+
+    public List<UserDTO> loadUsers() throws IOException {
+        // read the JSON file from the classpath
+        Resource resource = new ClassPathResource("data/users.json");
+        InputStream inputStream = resource.getInputStream();
+
+        // convert the JSON file to a list of Item objects
+        ObjectMapper objectMapper = new ObjectMapper();
+        List<UserDTO> users = objectMapper.readValue(inputStream, new TypeReference<List<UserDTO>>() {
+        });
+
+        List<UserDTO> updatedUsers = users.stream().map(this::createUser).collect(Collectors.toList());
+
+        return updatedUsers;
     }
 }
