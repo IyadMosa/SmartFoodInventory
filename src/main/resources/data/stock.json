@@ -1,0 +1,90 @@
+[
+  {
+    "name": "Apple",
+    "quantity": 5,
+    "expirationDate": "01/06/2023",
+    "category": "Fruit",
+    "manufacturer": "ABC Company",
+    "productionCountry": "USA"
+  },
+  {
+    "name": "Milk",
+    "quantity": 1,
+    "expirationDate": "20/05/2023",
+    "category": "Dairy",
+    "manufacturer": "XYZ Company",
+    "productionCountry": "Canada"
+  },
+  {
+    "name": "Bread",
+    "quantity": 2,
+    "expirationDate": "22/05/2023",
+    "category": "Bakery",
+    "manufacturer": "Bakery Co",
+    "productionCountry": "Germany"
+  },
+  {
+    "name": "Chicken",
+    "quantity": 3,
+    "expirationDate": "25/05/2023",
+    "category": "Meat",
+    "manufacturer": "Meat Processing Inc",
+    "productionCountry": "Brazil"
+  },
+  {
+    "name": "Carrot",
+    "quantity": 4,
+    "expirationDate": "30/05/2023",
+    "category": "Vegetable",
+    "manufacturer": "Farm Fresh Produce",
+    "productionCountry": "USA"
+  },
+  {
+    "name": "Cheese",
+    "quantity": 1,
+    "expirationDate": "28/05/2023",
+    "category": "Dairy",
+    "manufacturer": "Cheese Co Ltd",
+    "productionCountry": "France"
+  },
+  {
+    "name": "Banana",
+    "quantity": 6,
+    "expirationDate": "02/06/2023",
+    "category": "Fruit",
+    "manufacturer": "Tropical Fruits Ltd",
+    "productionCountry": "Ecuador"
+  },
+  {
+    "name": "Yogurt",
+    "quantity": 2,
+    "expirationDate": "21/05/2023",
+    "category": "Dairy",
+    "manufacturer": "Dairy Products Inc",
+    "productionCountry": "USA"
+  },
+  {
+    "name": "Salmon",
+    "quantity": 2,
+    "expirationDate": "27/05/2023",
+    "category": "Seafood",
+    "manufacturer": "Fisheries Co",
+    "productionCountry": "Norway"
+  },
+  {
+    "name": "Eggs",
+    "quantity": 12,
+    "expirationDate": "05/06/2023",
+    "category": "Dairy",
+    "manufacturer": "Egg Farms Ltd",
+    "productionCountry": "USA"
+  },
+  {
+    "name": "Tomato",
+    "quantity": 3,
+    "expirationDate": "31/05/2023",
+    "category": "Vegetable",
+    "manufacturer": "Farm Fresh Produce",
+    "productionCountry": "USA"
+  }
+]
