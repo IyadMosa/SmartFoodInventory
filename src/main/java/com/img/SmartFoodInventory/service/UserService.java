@@ -5,6 +5,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.img.SmartFoodInventory.dto.UserDTO;
 import com.img.SmartFoodInventory.model.MyUser;
 import com.img.SmartFoodInventory.repository.UserRepository;
+import com.img.SmartFoodInventory.util.geolocation.GeocodingAPI;
+import com.img.SmartFoodInventory.util.geolocation.Geolocation;
 import org.modelmapper.ModelMapper;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.core.io.Resource;
@@ -38,8 +40,15 @@ public class UserService implements UserDetailsService {
     }
 
     public UserDTO createUser(UserDTO userDTO) {
+        Geolocation geolocation = new Geolocation();
+        try {
+            geolocation = GeocodingAPI.getOpenCageGeolocation(userDTO.getAddress());
+        } catch (Exception e) {
+
+        }
         MyUser user = modelMapper.map(userDTO, MyUser.class);
         user.setJoinAt(new Date());
+        user.setGeolocation(geolocation);
         MyUser savedUser = userRepository.save(user);
         return modelMapper.map(savedUser, UserDTO.class);
     }

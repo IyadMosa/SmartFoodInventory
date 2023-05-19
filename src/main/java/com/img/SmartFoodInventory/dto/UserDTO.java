@@ -1,10 +1,10 @@
 package com.img.SmartFoodInventory.dto;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.img.SmartFoodInventory.util.geolocation.Address;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.Column;
 import java.util.Date;
 
 import static com.img.SmartFoodInventory.util.Constants.DATE_STANDER_FORMAT;
@@ -20,6 +20,7 @@ public class UserDTO {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_STANDER_FORMAT)
     private Date joinAt;
     private int points;
+    private Address address;
 
     public UserDTO(String username, String password) {
         this.username = username;

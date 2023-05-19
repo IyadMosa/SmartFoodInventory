@@ -56,6 +56,7 @@ public class AuthController {
         user.setPhoneNumber(registerRequest.getPhoneNumber());
         user.setJoinAt(new Date());
         user.setPoints(20);
+        user.setAddress(registerRequest.getAddress());
         userService.createUser(user);
 
         return ResponseEntity.ok(new ApiResponse(true, "User registered successfully"));

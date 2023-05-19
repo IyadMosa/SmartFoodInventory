@@ -1,11 +1,14 @@
 package com.img.SmartFoodInventory.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.img.SmartFoodInventory.util.geolocation.Address;
+import com.img.SmartFoodInventory.util.geolocation.Geolocation;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,6 +34,12 @@ public class MyUser {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_STANDER_FORMAT)
     private Date joinAt;
     private int points;
+    @Embedded
+    @NotNull
+    private Address address;
+    @Embedded
+    @NotNull
+    private Geolocation geolocation;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> items = new ArrayList<>();
 }
