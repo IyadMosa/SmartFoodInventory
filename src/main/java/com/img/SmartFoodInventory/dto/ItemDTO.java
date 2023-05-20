@@ -13,6 +13,7 @@ import static com.img.SmartFoodInventory.util.Constants.DATE_STANDER_FORMAT;
 public class ItemDTO {
     private Long id;
     private String name;
+    private String barcode;
     private String manufacturer;
     private String productionCountry;
     private String category;
