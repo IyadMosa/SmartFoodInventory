@@ -22,6 +22,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -83,8 +84,20 @@ public class UserService implements UserDetailsService {
         List<UserDTO> users = objectMapper.readValue(inputStream, new TypeReference<List<UserDTO>>() {
         });
 
-        List<UserDTO> updatedUsers = users.stream().map(this::createUser).collect(Collectors.toList());
+        List<UserDTO> updatedUsers = users.stream().flatMap(user -> {
+            try {
+                Thread.sleep(2000);
+                return Stream.of(createUser(user));
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+                return Stream.empty();
+            }
+        }).collect(Collectors.toList());
 
         return updatedUsers;
+    }
+
+    public void save(MyUser user) {
+        userRepository.save(user);
     }
 }

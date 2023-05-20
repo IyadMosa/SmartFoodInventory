@@ -16,23 +16,33 @@ import static com.img.SmartFoodInventory.util.Constants.DATE_STANDER_FORMAT;
 @NoArgsConstructor
 @Entity
 @Table
-public class Item {
+public class SharedItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "item_id")
     private Long id;
-    private String name;
-    private String barcode;
-    private String manufacturer;
-    private String productionCountry;
-    private String category;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_STANDER_FORMAT)
-    private Date addedAt;
-    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_STANDER_FORMAT)
-    private Date expirationDate;
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
+
+    @ManyToOne
+    @JoinColumn(name = "sharer_id")
     @JsonIgnore
-    private MyUser user;
+    private MyUser sharer;
+
+    @ManyToOne
+    @JoinColumn(name = "recipient_id")
+    @JsonIgnore
+    private MyUser recipient;
+
+    @ManyToOne
+    @JoinColumn(name = "item_id")
+    private Item item;
+
+    private int quantity;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_STANDER_FORMAT)
+    private Date sharingDate;
+
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_STANDER_FORMAT)
+    private Date consumingDate;
+
+    private boolean consumed;
 }

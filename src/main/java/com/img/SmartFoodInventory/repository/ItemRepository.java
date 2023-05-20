@@ -9,4 +9,6 @@ import java.util.List;
 public interface ItemRepository extends JpaRepository<Item, Long> {
     List<Item> findByUser(MyUser user);
 
+    Item getById(Long id);
+
 }

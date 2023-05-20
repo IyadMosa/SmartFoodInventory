@@ -83,4 +83,12 @@ public class ItemService {
             add(item, user.getUsername());
         }
     }
+
+    public Item getById(long itemId) {
+        return itemRepository.getById(itemId);
+    }
+
+    public void save(Item item) {
+        itemRepository.save(item);
+    }
 }

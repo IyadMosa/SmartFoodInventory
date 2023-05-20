@@ -17,7 +17,6 @@ public class ItemDTO {
     private String manufacturer;
     private String productionCountry;
     private String category;
-    private int quantity;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_STANDER_FORMAT)
     private Date addedAt;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_STANDER_FORMAT)

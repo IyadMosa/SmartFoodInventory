@@ -3,18 +3,32 @@
     "username": "iyada",
     "password": "iyada",
     "email": "iyada@example.com",
-    "phoneNumber": "1234567890"
+    "phoneNumber": "1234567890",
+    "address": {
+      "street": "Umm Tuba",
+      "city": "Jerusalem",
+      "country": "Israel"
+    }
   },
   {
     "username": "mosa",
     "password": "mosa",
     "email": "mosa@example.com",
-    "phoneNumber": "9876543210"
+    "phoneNumber": "9876543210",
+    "address": {
+      "street": "star",
+      "city": "Bethlehem",
+      "country": "Palestine"
+    }
   },
   {
     "username": "mohammad",
     "password": "mohammad",
     "email": "mohammad@example.com",
-    "phoneNumber": "5555555555"
+    "phoneNumber": "5555555555",
+    "address": {
+      "city": "Haifa",
+      "country": "Israel"
+    }
   }
 ]

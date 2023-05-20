@@ -1,6 +1,7 @@
 package com.img.SmartFoodInventory.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.img.SmartFoodInventory.util.geolocation.Address;
 import com.img.SmartFoodInventory.util.geolocation.Geolocation;
 import lombok.AllArgsConstructor;

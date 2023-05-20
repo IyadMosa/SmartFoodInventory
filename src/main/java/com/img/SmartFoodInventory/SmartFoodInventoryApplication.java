@@ -26,7 +26,7 @@ public class SmartFoodInventoryApplication {
 
 	@PostConstruct
 	public void init() throws IOException {
-		//List<UserDTO> users =  userService.loadUsers();
-		//itemService.loadItems(users);
+		List<UserDTO> users =  userService.loadUsers();
+		itemService.loadItems(users);
 	}
 }
