@@ -4,11 +4,14 @@ import com.img.SmartFoodInventory.model.Item;
 import com.img.SmartFoodInventory.model.MyUser;
 import com.img.SmartFoodInventory.model.SharedItem;
 import com.img.SmartFoodInventory.repository.SharedItemRepository;
+import com.img.SmartFoodInventory.util.geolocation.DistanceCalculator;
+import com.img.SmartFoodInventory.util.geolocation.Geolocation;
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class SharedItemService {
@@ -74,8 +77,17 @@ public class SharedItemService {
         sharedItemRepository.save(sharedItem);
     }
 
-    public List<SharedItem> getAll() {
+    public List<SharedItem> getAll(String username, int radiusKm) {
+        MyUser user = userService.findByUsername(username);
 
-        return sharedItemRepository.findAll();
+        List<SharedItem> sharedItems = sharedItemRepository.findAll();
+        // Filter shared items based on location
+        List<SharedItem> itemsInRange = sharedItems.stream()
+                .filter(sharedItem -> {
+                    Geolocation sharerLocation = sharedItem.getSharer().getGeolocation();
+                    return DistanceCalculator.isPointWithinRadius(user.getGeolocation(), sharerLocation, radiusKm);
+                })
+                .collect(Collectors.toList());
+        return itemsInRange;
     }
 }

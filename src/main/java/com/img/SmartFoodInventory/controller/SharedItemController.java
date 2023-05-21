@@ -21,9 +21,10 @@ public class SharedItemController {
         this.userService = userService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<SharedItem>> getAll() {
-        List<SharedItem> sharedItems = sharedItemService.getAll();
+    @GetMapping("/{radius}")
+    public ResponseEntity<List<SharedItem>> getAll(Principal principal,@PathVariable int radius) {
+        String username = principal.getName(); // Retrieve the username from the authenticated user
+        List<SharedItem> sharedItems = sharedItemService.getAll(username,radius);
         return ResponseEntity.ok(sharedItems);
     }
 
