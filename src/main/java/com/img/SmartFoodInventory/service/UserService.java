@@ -86,6 +86,7 @@ public class UserService implements UserDetailsService {
 
         List<UserDTO> updatedUsers = users.stream().flatMap(user -> {
             try {
+                user.setPoints(20);
                 Thread.sleep(2000);
                 return Stream.of(createUser(user));
             } catch (InterruptedException e) {
