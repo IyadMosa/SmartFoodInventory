@@ -1,14 +1,24 @@
-import React from "react";
-import { TableScreen } from "@iyadmosa/react-library";
+import React, { useEffect } from "react";
+import Dashboard from "./Dashboard";
+import { MainScreen } from "@iyadmosa/react-library";
+import SharedStore from "./SharedStore";
 
 const DashboardPage = () => {
-  console.log("jdkshgjkshjgh");
-  return (
-    <div>
-      <h2>Dashboard</h2>
-      <p>Welcome to the Dashboard!</p>
-    </div>
-  );
+  const brand = { name: "NavbarScroller", to: "/dashboard" };
+  const links = [
+    {
+      name: "Store",
+      to: "/dashboard",
+      component: <Dashboard />,
+    },
+    {
+      name: "Shared store",
+      to: "/shared",
+      component: <SharedStore />,
+    },
+  ];
+
+  return <MainScreen brand={brand} links={links} />;
 };
 
 export default DashboardPage;
