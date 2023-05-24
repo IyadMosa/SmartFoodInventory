@@ -11,8 +11,7 @@ import thunk from "redux-thunk";
 import authReducer from "./reducers/authReducer";
 import LoginPage from "./components/LoginPage";
 import DashboardPage from "./components/DashboardPage";
-
-const store = createStore(authReducer, applyMiddleware(thunk));
+import store from "./store";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   const isAuthenticated = !!localStorage.getItem("token");
