@@ -10,16 +10,20 @@ export const RestRequest =
       },
       ...(method && method !== "GET" ? { body: JSON.stringify(body) } : {}),
     };
-    return fetch(url, requestOptions).then((response) =>
-      response.status >= 400
-        ? response
-            .text()
-            .then((data) => (toastr.error(data), Promise.reject(data)))
-        : (!successMessage ? null : toastr.success(successMessage + " success"),
+    return fetch(url, requestOptions).then((response) => {
+      if (response.status >= 400) {
+        localStorage.removeItem("token"); // Remove the token from localStorage
+        window.location.href = "/"; // Redirect to the login page
+        return Promise.reject(response.error);
+      } else {
+        return (
+          !successMessage ? null : toastr.success(successMessage + " success"),
           response.headers.get("Content-Type").includes("text")
             ? response.text()
-            : response.json())
-    );
+            : response.json()
+        );
+      }
+    });
   };
 
 export const RestRequestWithSave =
