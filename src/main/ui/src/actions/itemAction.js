@@ -25,8 +25,7 @@ export const getStoreItemsAll = () => (dispatch, getState) =>
 
 export const getSharedStoreItemsAll = (radius) => (dispatch, getState) =>
   RestRequest(
-    //`/api/shared-items/${radius}`,
-    `/api/shared-items/500`,
+    `/api/shared-items/${radius}`,
     "GET",
     null,
     "login success"

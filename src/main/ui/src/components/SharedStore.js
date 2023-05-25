@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { TableScreen } from "@iyadmosa/react-library";
+import React, { useEffect, useState } from "react";
+import { Button, TableScreen, TextField } from "@iyadmosa/react-library";
 import { useDispatch, useSelector } from "react-redux";
 import {
   acceptItem,
@@ -11,12 +11,12 @@ import IconButton from "@material-ui/core/IconButton";
 import SaveAltIcon from "@material-ui/icons/SaveAlt";
 
 const SharedStore = () => {
+  const [radius, setRadius] = useState(1);
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(getSharedStoreItemsAll());
+    dispatch(getSharedStoreItemsAll(radius));
   }, []);
   const data = useSelector((state) => state.items.sharedItems);
-  console.log(data);
   const columns = [
     {
       Header: "id",
@@ -69,15 +69,38 @@ const SharedStore = () => {
     },
   ];
   return (
-    <TableScreen
-      title={"Shared Store"}
-      data={data}
-      columns={columns}
-      addForm={<div />}
-      onAddSubmit={() => alert("submit")}
-      onInit={() => dispatch(getSharedStoreItemsAll())}
-      disabledSubmit={true}
-    />
+    <di>
+      <Button
+        onClick={() => {
+          setRadius(1);
+          dispatch(getSharedStoreItemsAll(1));
+        }}
+        label={"1 Km"}
+      />
+      <Button
+        onClick={() => {
+          setRadius(5);
+          dispatch(getSharedStoreItemsAll(5));
+        }}
+        label={"5 Km"}
+      />
+      <Button
+        onClick={() => {
+          setRadius(10);
+          dispatch(getSharedStoreItemsAll(10));
+        }}
+        label={"10 Km"}
+      />
+      <TableScreen
+        title={"Shared Store"}
+        data={data}
+        columns={columns}
+        addForm={<div />}
+        onAddSubmit={() => alert("submit")}
+        onInit={() => dispatch(getSharedStoreItemsAll(radius))}
+        disabledSubmit={true}
+      />
+    </di>
   );
 };
 
