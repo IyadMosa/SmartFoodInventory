@@ -21,24 +21,56 @@ public class SharedItemController {
         this.userService = userService;
     }
 
-    @GetMapping("/{radius}")
-    public ResponseEntity<List<SharedItem>> getAll(Principal principal,@PathVariable int radius) {
+    @PostMapping("/share/{itemId}")
+    public ResponseEntity<String> shareItem(Principal principal, @PathVariable long itemId,
+                                            @RequestParam(value = "quantity", defaultValue = "1") int quantity) {
+        String sharerUsername = principal.getName(); // Retrieve the username from the authenticated user
+        sharedItemService.shareItem(sharerUsername, itemId, quantity);
+        return ResponseEntity.ok("Item shared successfully");
+
+    }
+
+    @GetMapping("/available/{radius}")
+    public ResponseEntity<List<SharedItem>> getAvailableSharedItems(Principal principal, @PathVariable int radius) {
         String username = principal.getName(); // Retrieve the username from the authenticated user
-        List<SharedItem> sharedItems = sharedItemService.getAll(username,radius);
+        List<SharedItem> sharedItems = sharedItemService.getAvailableSharedItems(username,radius);
         return ResponseEntity.ok(sharedItems);
     }
 
-    @PostMapping("/share/{itemId}")
-    public void shareItem(Principal principal, @PathVariable long itemId,
-                          @RequestParam(value = "quantity", defaultValue = "1") int quantity) {
-        String sharerUsername = principal.getName(); // Retrieve the username from the authenticated user
-        sharedItemService.shareItem(sharerUsername, itemId, quantity);
+    @GetMapping("/all")
+    public ResponseEntity<List<SharedItem>> getAllSharedItems() {
+        List<SharedItem> sharedItems = sharedItemService.getAllSharedItems();
+        return ResponseEntity.ok(sharedItems);
     }
 
-    @PostMapping("/accept/{sharedItemId}")
-    public void acceptSharedItem(Principal principal, @PathVariable long sharedItemId) {
+
+    @PostMapping("/request/{sharedItemId}")
+    public ResponseEntity<String> requestSharedItem(Principal principal, @PathVariable long sharedItemId) {
         String recipientUsername = principal.getName(); // Retrieve the username from the authenticated user
-        sharedItemService.acceptSharedItem(recipientUsername, sharedItemId);
+        sharedItemService.requestSharedItem(recipientUsername, sharedItemId);
+        return ResponseEntity.ok("Request shared item successfully");
+    }
+
+    @PostMapping("/confirm/{sharedItemId}")
+    public ResponseEntity<String> confirmSharedItem(Principal principal, @PathVariable long sharedItemId) {
+        String sharerUsername = principal.getName(); // Retrieve the username from the authenticated user
+        sharedItemService.confirmSharedItem(sharerUsername, sharedItemId);
+        return ResponseEntity.ok("Confirm shared item successfully");
+    }
+
+
+    @GetMapping("/requested")
+    public ResponseEntity<List<SharedItem>> getRequestedSharedItems(Principal principal) {
+        String username = principal.getName(); // Retrieve the username from the authenticated user
+        List<SharedItem> sharedItems = sharedItemService.getRequestedSharedItems(username);
+        return ResponseEntity.ok(sharedItems);
+    }
+
+    @GetMapping("/to-confirm")
+    public ResponseEntity<List<SharedItem>> getToConfirmSharedItems(Principal principal) {
+        String username = principal.getName(); // Retrieve the username from the authenticated user
+        List<SharedItem> sharedItems = sharedItemService.getToConfirmSharedItems(username);
+        return ResponseEntity.ok(sharedItems);
     }
 }
 

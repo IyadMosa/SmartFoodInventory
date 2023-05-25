@@ -1,4 +1,5 @@
 import {
+  GET_USER,
   LOGIN_ERROR,
   LOGIN_SUCCESS,
   REGISTER_ERROR,
@@ -7,6 +8,7 @@ import {
 
 const initialState = {
   token: localStorage.getItem("token"),
+  user: {},
   error: null,
 };
 
@@ -33,6 +35,11 @@ export default function authReducer(state = initialState, action) {
       return {
         ...state,
         error: action.payload,
+      };
+    case GET_USER:
+      return {
+        ...state,
+        user: action.payload,
       };
     default:
       return state;

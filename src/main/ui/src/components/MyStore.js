@@ -3,7 +3,7 @@ import { TableScreen } from "@iyadmosa/react-library";
 import { useDispatch, useSelector } from "react-redux";
 import { getStoreItemsAll, shareItem } from "../actions/itemAction";
 import IconButton from "@material-ui/core/IconButton";
-import SaveAltIcon from "@material-ui/icons/SaveAlt";
+import ShareIcon from "@mui/icons-material/Share";
 
 const MyStore = () => {
   const dispatch = useDispatch();
@@ -58,7 +58,7 @@ const MyStore = () => {
                 dispatch(shareItem(porps.original.id));
               }}
             >
-              <SaveAltIcon titleAccess={"Share item"} />
+              <ShareIcon titleAccess={"Share item"} />
             </IconButton>
           </div>
         );
@@ -68,7 +68,7 @@ const MyStore = () => {
   ];
   return (
     <TableScreen
-      title={"Store"}
+      title={"My Store"}
       data={data}
       columns={columns}
       addForm={<div />}

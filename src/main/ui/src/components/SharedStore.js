@@ -2,14 +2,17 @@ import React, { useEffect, useState } from "react";
 import { Button, TableScreen, TextField } from "@iyadmosa/react-library";
 import { useDispatch, useSelector } from "react-redux";
 import {
-  acceptItem,
+  requestSharedItem,
   getSharedStoreItemsAll,
-  getStoreItemsAll,
-  shareItem,
 } from "../actions/itemAction";
 import IconButton from "@material-ui/core/IconButton";
-import SaveAltIcon from "@material-ui/icons/SaveAlt";
+import RequestQuoteIcon from "@mui/icons-material/RequestQuote";
+import styled from "styled-components";
 
+const Buttons = styled.div`
+  display: flex;
+  gap: 20px;
+`;
 const SharedStore = () => {
   const [radius, setRadius] = useState(1);
   const dispatch = useDispatch();
@@ -57,10 +60,10 @@ const SharedStore = () => {
             <IconButton
               color="primary"
               onClick={() => {
-                dispatch(acceptItem(porps.original.id));
+                dispatch(requestSharedItem(porps.original.id));
               }}
             >
-              <SaveAltIcon titleAccess={"accept item"} />
+              <RequestQuoteIcon titleAccess={"request item"} />
             </IconButton>
           </div>
         );
@@ -70,35 +73,56 @@ const SharedStore = () => {
   ];
   return (
     <di>
-      <Button
-        onClick={() => {
-          setRadius(1);
-          dispatch(getSharedStoreItemsAll(1));
-        }}
-        label={"1 Km"}
-      />
-      <Button
-        onClick={() => {
-          setRadius(5);
-          dispatch(getSharedStoreItemsAll(5));
-        }}
-        label={"5 Km"}
-      />
-      <Button
-        onClick={() => {
-          setRadius(10);
-          dispatch(getSharedStoreItemsAll(10));
-        }}
-        label={"10 Km"}
-      />
+      <Buttons>
+        <Button
+          onClick={() => {
+            setRadius(1);
+            dispatch(getSharedStoreItemsAll(1));
+          }}
+          label={"1 Km"}
+        />
+        <Button
+          onClick={() => {
+            setRadius(2);
+            dispatch(getSharedStoreItemsAll(2));
+          }}
+          label={"2 Km"}
+        />
+        <Button
+          onClick={() => {
+            setRadius(5);
+            dispatch(getSharedStoreItemsAll(5));
+          }}
+          label={"5 Km"}
+        />
+        <Button
+          onClick={() => {
+            setRadius(10);
+            dispatch(getSharedStoreItemsAll(10));
+          }}
+          label={"10 Km"}
+        />
+        <Button
+          onClick={() => {
+            setRadius(100);
+            dispatch(getSharedStoreItemsAll(100));
+          }}
+          label={"100 Km"}
+        />
+        <Button
+          onClick={() => {
+            setRadius(500);
+            dispatch(getSharedStoreItemsAll(500));
+          }}
+          label={"500 Km"}
+        />
+      </Buttons>
       <TableScreen
         title={"Shared Store"}
+        showAdd={false}
         data={data}
         columns={columns}
-        addForm={<div />}
-        onAddSubmit={() => alert("submit")}
         onInit={() => dispatch(getSharedStoreItemsAll(radius))}
-        disabledSubmit={true}
       />
     </di>
   );

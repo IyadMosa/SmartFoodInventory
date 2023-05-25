@@ -1,8 +1,16 @@
-import { ITEMS, ITEMS_ERROR, SHARED_ITEMS } from "../actions/types";
+import {
+  ITEMS,
+  ITEMS_ERROR,
+  REQUESTED_SHARED_ITEMS,
+  SHARED_ITEMS,
+  TO_CONFIRM_SHARED_ITEMS,
+} from "../actions/types";
 
 const initialState = {
   itemsStore: [],
   sharedItems: [],
+  requestedSharedItems: [],
+  toConfirmSharedItems: [],
   error: null,
 };
 
@@ -24,6 +32,18 @@ export default function itemReducer(state = initialState, action) {
       return {
         ...state,
         sharedItems: action.payload,
+        error: null,
+      };
+    case REQUESTED_SHARED_ITEMS:
+      return {
+        ...state,
+        requestedSharedItems: action.payload,
+        error: null,
+      };
+    case TO_CONFIRM_SHARED_ITEMS:
+      return {
+        ...state,
+        toConfirmSharedItems: action.payload,
         error: null,
       };
     default:

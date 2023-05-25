@@ -1,5 +1,6 @@
 import { RestRequest } from "./RestRequest";
 import {
+  GET_USER,
   LOGIN_ERROR,
   LOGIN_SUCCESS,
   REGISTER_ERROR,
@@ -34,6 +35,20 @@ export const register = (user) => (dispatch, getState) =>
   )(dispatch, getState)
     .then(() => {
       dispatch({ type: REGISTER_SUCCESS });
+    })
+    .catch((error) => {
+      dispatch({ type: REGISTER_ERROR, payload: error.message });
+    });
+
+export const whoami = () => (dispatch, getState) =>
+  RestRequest(
+    "/api/user/whoami",
+    "GET",
+    null,
+    "login success"
+  )(dispatch, getState)
+    .then((data) => {
+      dispatch({ type: GET_USER, payload: data });
     })
     .catch((error) => {
       dispatch({ type: REGISTER_ERROR, payload: error.message });

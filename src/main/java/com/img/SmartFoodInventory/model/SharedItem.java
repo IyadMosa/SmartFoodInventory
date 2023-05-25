@@ -41,8 +41,13 @@ public class SharedItem {
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_STANDER_FORMAT)
     private Date sharingDate;
 
+    private boolean requested;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_STANDER_FORMAT)
-    private Date consumingDate;
+    private Date requestedDate;
 
-    private boolean consumed;
+    private boolean confirmed;
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_STANDER_FORMAT)
+    private Date confirmedDate;
+
+
 }

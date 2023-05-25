@@ -26,6 +26,21 @@ public class SharedItemService {
         this.itemService = itemService;
     }
 
+    public List<SharedItem> getAvailableSharedItems(String username, int radiusKm) {
+        MyUser user = userService.findByUsername(username);
+
+        List<SharedItem> sharedItems = sharedItemRepository.findAll();
+        // Filter shared items based on location
+        List<SharedItem> itemsInRange = sharedItems.stream()
+                .filter(sharedItem -> {
+                    Geolocation sharerLocation = sharedItem.getSharer().getGeolocation();
+                    return DistanceCalculator.isPointWithinRadius(user.getGeolocation(), sharerLocation, radiusKm);
+                })
+                .filter(sharedItem -> !sharedItem.isRequested())
+                .collect(Collectors.toList());
+        return itemsInRange;
+    }
+
 
     @Transactional
     public synchronized void shareItem(String sharerUsername, long itemId, int quantity) {
@@ -48,23 +63,43 @@ public class SharedItemService {
     }
 
     @Transactional
-    public synchronized void acceptSharedItem(String recipientUsername, long sharedItemId) {
+    public synchronized void requestSharedItem(String recipientUsername, long sharedItemId) {
 
         SharedItem sharedItem = sharedItemRepository.getById(sharedItemId);
-        if (sharedItem == null || sharedItem.isConsumed()) {
+        if (sharedItem == null || sharedItem.isRequested()) {
             return;
         }
 
         // Update the recipient user
         MyUser recipient = userService.findByUsername(recipientUsername);
+        // Update the shared item
+        sharedItem.setRequested(true);
+        sharedItem.setRequestedDate(new Date());
+        sharedItem.setRecipient(recipient);
+
+        // Save the changes to the UserRepository and SharedItemRepository
+        userService.save(recipient);
+        sharedItemRepository.save(sharedItem);
+    }
+
+
+    public void confirmSharedItem(String sharerUsername, long sharedItemId) {
+        SharedItem sharedItem = sharedItemRepository.getById(sharedItemId);
+        if (sharedItem == null || sharedItem.isConfirmed()
+                || !sharedItem.getSharer().getUsername().equals(sharerUsername)) {
+            return;
+        }
+
+        // Update the recipient user
+        MyUser recipient = sharedItem.getRecipient();
         recipient.setPoints(recipient.getPoints() - 1);
         // Update the item owner - user
         sharedItem.getItem().setUser(recipient);
         recipient.getItems().add(sharedItem.getItem());
 
         // Update the shared item
-        sharedItem.setConsumed(true);
-        sharedItem.setConsumingDate(new Date());
+        sharedItem.setConfirmed(true);
+        sharedItem.setConfirmedDate(new Date());
 
         // Update the sharer user points
         MyUser sharer = sharedItem.getSharer();
@@ -77,17 +112,15 @@ public class SharedItemService {
         sharedItemRepository.save(sharedItem);
     }
 
-    public List<SharedItem> getAll(String username, int radiusKm) {
-        MyUser user = userService.findByUsername(username);
+    public List<SharedItem> getRequestedSharedItems(String username) {
+        return sharedItemRepository.findByRequestedTrueAndConfirmedFalseAndRecipient_Username(username);
+    }
 
-        List<SharedItem> sharedItems = sharedItemRepository.findAll();
-        // Filter shared items based on location
-        List<SharedItem> itemsInRange = sharedItems.stream()
-                .filter(sharedItem -> {
-                    Geolocation sharerLocation = sharedItem.getSharer().getGeolocation();
-                    return DistanceCalculator.isPointWithinRadius(user.getGeolocation(), sharerLocation, radiusKm);
-                })
-                .collect(Collectors.toList());
-        return itemsInRange;
+    public List<SharedItem> getToConfirmSharedItems(String username) {
+        return sharedItemRepository.findByRequestedTrueAndConfirmedFalseAndSharer_Username(username);
+    }
+
+    public List<SharedItem> getAllSharedItems() {
+        return sharedItemRepository.findAll();
     }
 }
