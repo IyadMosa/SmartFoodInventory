@@ -5,7 +5,7 @@ import { getStoreItemsAll, shareItem } from "../actions/itemAction";
 import IconButton from "@material-ui/core/IconButton";
 import SaveAltIcon from "@material-ui/icons/SaveAlt";
 
-const Dashboard = () => {
+const MyStore = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(getStoreItemsAll());
@@ -79,4 +79,4 @@ const Dashboard = () => {
   );
 };
 
-export default Dashboard;
+export default MyStore;

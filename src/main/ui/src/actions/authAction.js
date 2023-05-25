@@ -18,7 +18,7 @@ export const login = (auth, history) => (dispatch, getState) =>
       const token = data.token;
       localStorage.setItem("token", token);
       dispatch({ type: LOGIN_SUCCESS, payload: token });
-      history.push("/dashboard"); // Redirect to the dashboard page
+      history.push("/my-store"); // Redirect to the dashboard page
     })
     .catch((error) => {
       console.log(error);
