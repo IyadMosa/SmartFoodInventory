@@ -40,7 +40,7 @@ public class ItemService {
         Item item = modelMapper.map(itemDTO, Item.class);
         item.setUser(user);
         item.setAddedAt(new Date());
-
+        item.appendMessageToTrackingLogs("Item created by user " + username + ".");
         Item savedFoodItem = itemRepository.save(item);
 
         return modelMapper.map(savedFoodItem, ItemDTO.class);

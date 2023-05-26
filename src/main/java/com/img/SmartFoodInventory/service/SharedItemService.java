@@ -48,7 +48,7 @@ public class SharedItemService {
         if (item == null) {
             return;
         }
-
+        item.appendMessageToTrackingLogs("Item shared by " + sharerUsername + " with quantity of " + quantity + ".");
         MyUser sharer = userService.findByUsername(sharerUsername);
 
         // Create a new SharedItem object
@@ -70,6 +70,7 @@ public class SharedItemService {
             return;
         }
 
+        sharedItem.getItem().appendMessageToTrackingLogs("Item requested by user " + recipientUsername + ".");
         // Update the recipient user
         MyUser recipient = userService.findByUsername(recipientUsername);
         // Update the shared item
@@ -90,13 +91,6 @@ public class SharedItemService {
             return;
         }
 
-        // Update the recipient user
-        MyUser recipient = sharedItem.getRecipient();
-        recipient.setPoints(recipient.getPoints() - 1);
-        // Update the item owner - user
-        sharedItem.getItem().setUser(recipient);
-        recipient.getItems().add(sharedItem.getItem());
-
         // Update the shared item
         sharedItem.setConfirmed(true);
         sharedItem.setConfirmedDate(new Date());
@@ -104,6 +98,17 @@ public class SharedItemService {
         // Update the sharer user points
         MyUser sharer = sharedItem.getSharer();
         sharer.setPoints(sharer.getPoints() + 1);
+
+        sharedItem.getItem().appendMessageToTrackingLogs("Item request confirmed by owner " + sharerUsername + ".");
+
+        // Update the recipient user
+        MyUser recipient = sharedItem.getRecipient();
+        recipient.setPoints(recipient.getPoints() - 1);
+        // Update the item owner - user
+        sharedItem.getItem().setUser(recipient);
+        recipient.getItems().add(sharedItem.getItem());
+        sharedItem.getItem().appendMessageToTrackingLogs("Item transferred to new owner " + recipient.getUsername() + "." );
+
 
         // Save the changes to the UserRepository and SharedItemRepository
         userService.save(recipient);

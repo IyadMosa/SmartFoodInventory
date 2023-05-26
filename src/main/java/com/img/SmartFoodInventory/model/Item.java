@@ -7,6 +7,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 import static com.img.SmartFoodInventory.util.Constants.DATE_STANDER_FORMAT;
@@ -35,4 +37,19 @@ public class Item {
     @JoinColumn(name = "user_id")
     @JsonIgnore
     private MyUser user;
+    @Lob
+    private String trackingLogs;
+
+    public void appendMessageToTrackingLogs(String message) {
+        LocalDateTime currentDateTime = LocalDateTime.now();
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss");
+        String formattedDateTime = currentDateTime.format(formatter);
+        String formattedMessage = "[" + formattedDateTime + "] " + message + "\n";
+
+        if (trackingLogs == null) {
+            trackingLogs = formattedMessage;
+        } else {
+            trackingLogs += formattedMessage;
+        }
+    }
 }

@@ -21,4 +21,5 @@ public class ItemDTO {
     private Date addedAt;
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = DATE_STANDER_FORMAT)
     private Date expirationDate;
+    private String trackingLogs;
 }
