@@ -16,13 +16,16 @@ export const login = (auth, history) => (dispatch, getState) =>
   )(dispatch, getState)
     .then((data) => {
       // Save the token in local storage or a cookie
-      const token = data.token;
-      localStorage.setItem("token", token);
-      dispatch({ type: LOGIN_SUCCESS, payload: token });
-      history.push("/my-store"); // Redirect to the dashboard page
+      if (data.success === false) {
+        dispatch({ type: LOGIN_ERROR, payload: data.message });
+      } else {
+        const token = data.token;
+        localStorage.setItem("token", token);
+        dispatch({ type: LOGIN_SUCCESS, payload: token });
+        history.push("/my-store"); // Redirect to the dashboard page
+      }
     })
     .catch((error) => {
-      console.log(error);
       dispatch({ type: LOGIN_ERROR, payload: error.message });
     });
 

@@ -11,7 +11,9 @@ export const RestRequest =
       ...(method && method !== "GET" ? { body: JSON.stringify(body) } : {}),
     };
     return fetch(url, requestOptions).then((response) => {
-      if (response.status >= 400) {
+      if (response.status === 401 && url.includes("login")) {
+        return response.json();
+      } else if (response.status >= 401 && !url.includes("login")) {
         localStorage.removeItem("token"); // Remove the token from localStorage
         window.location.href = "/"; // Redirect to the login page
         return Promise.reject(response.error);
