@@ -8,7 +8,6 @@ const UserPage = () => {
     dispatch(whoami());
   }, []);
   const user = useSelector((state) => state.auth.user);
-  console.log(user);
   return user.username ? (
     <span>
       {user.username}-{user.address.city}, {user.points} Pnts
