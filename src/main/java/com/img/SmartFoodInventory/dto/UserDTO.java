@@ -21,6 +21,8 @@ public class UserDTO {
     private Date joinAt;
     private int points;
     private Address address;
+    private String deviceToken;
+
 
     public UserDTO(String username, String password) {
         this.username = username;

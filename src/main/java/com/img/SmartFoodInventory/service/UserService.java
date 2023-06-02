@@ -101,4 +101,28 @@ public class UserService implements UserDetailsService {
     public void save(MyUser user) {
         userRepository.save(user);
     }
+
+
+    public List<MyUser> getAllUsersInRange(MyUser sharer, int radiusKm) {
+        List<MyUser> users = userRepository.findAll();
+//        List<MyUser> usersInRange = userRepository.findAll().stream()
+//                .filter(user1 -> {
+//                    Geolocation sharerLocation = sharer.getGeolocation();
+//                    return DistanceCalculator.isPointWithinRadius(user1.getGeolocation(), sharerLocation, radiusKm);
+//                })
+//                .collect(Collectors.toList());
+        users.removeIf(user -> user.getId().equals(sharer.getId()));
+        return users;
+    }
+
+    public void updateUserDeviceTokens(String username, String deviceToken) {
+        MyUser user = findByUsername(username);
+        List<String> deviceTokens = user.getDeviceTokens();
+
+        // Add the new device token to the list
+        deviceTokens.add(deviceToken);
+
+        // Save the updated user data
+        userRepository.save(user);
+    }
 }

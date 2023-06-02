@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "smartfoodinventory",
+  "private_key_id": "ef32fcbcd3a0e14f057d0616f190c2845a2cfef7",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQDn+QglBeiFWuCI\npTwR4bvGYc6+JyPpFbmgbfbhIDUcFOoR2zn/lLpNVv3KAVQAudP23nN5Ww3k2c5S\nUU4SVST+R20uL2cvOvRoHWiDbm9hndiFo5pEF4yuBfzp26Dweo1uEnFdQ6xtKEG+\n8LNKTG5R1EZvj4r7t9oXuCZzNcnn6Oc+X4V3ujdGDvYqJpTPrJdkv5PZRuFNLbNO\nYYUeUdM4qxXDYh3AVs6Lud/z+uZm4tCb/w8JQbd6uu9Mz/tbbm4xhyR5NdYTcaxW\nYZQpJIhngO6VfI/MZ2TcAaV9/BZ1IesIGqIynxI99V6oIEfsmUVkIxaSh4uXe5bH\nRxk9qxY7AgMBAAECggEAcwb0aHNtEQ92rpuM1WsjcyRV4cnDz1VEBk7w8EJJw6KF\nTRRxxpAH78jWsQAGmROMjWpSRVeG5LeyTPRfK80HuoVNmOzNlEh+IFCQ3jd5SKT+\nVIpDOUeaLULv3kDXpdeHYREJIM+pZTlknJt7tDiBLdd+k9xQdTB+F2vruQ5vj6xm\nlq4ETrWEQSBVfzW/TecxCKWOKYris4FaNUPoVZb4IHWXjXV4cvOejUsRQoh9lChz\nNKoiwTneI2/9KgbrOtMh50mxhteJ0hYDS8mDlj0oCXNJ3a7R/gGZiOff+rEda0Mm\nLxPmMyZA/TZFskJ2hEWV/QhF/AXOqamCpaYZRgQg0QKBgQD6Rql5G1P4DimcDY6F\nOZbNpvjfAM5BlET97HtQQVMXD9Tk3UsDcmb7uTmbBdEot2esVVuGv8haXdpIiqSP\nnGVrDlDQgdPHbtgI+49PrBS7n3nZlRWFsiNGO7tvpjh/iz6cZfz7aw1EPpzmH7JO\nYxsR0vJofpwYSkNcKyL4UC6HKwKBgQDtRzTVUaDWG3sgYYEzPyURKAUM+oZ+jAS8\nLwl9OeyDN6UMBQ19LAcG2aAWD+qR9snGubYHiarGzqEJHf9QBPQLXsT+1WceAtQa\nJEBTUug6mucRt4SkT39t4cDEETDCZgeEQv53Ui3Ra6XSLdAoeTaXt5lTMEC+LYPh\n3klr5K4lMQKBgEIjgE+/2A3aeEaEEqDEWkTYljYgeWE9NIpB/0hzKukSRvmAPX2Y\nsvxcs4tzGxX+echB+mD+t4yh9rhq4xgMhYSoENU5KeUvNqoRCItOd2ApwcKtMjXV\noJrD2EGmFJIoExCzpwot/SCGx2HNCIrMh+/K5kKVCt0kau6le6VRUypnAoGBAKCO\nQEfgNk7qxYQBtmUw4yoaxGAl3YAfysxzn54m5c1ch8f8W0ZJ1m9iLxr+piEityJL\nY8rx8qcYBoueyrYgw+o1tGMjj+UU0OTnhsdbIF0XmCe64Hw2dumpisChSTchxxBO\nLNYcu3gruUbhTSs16iT7TTqnOgf10Hmz6kahtNzhAoGAZ/zXL2wLypRdUVHHJrAJ\ntB+/FsUYrT1shervqcqqknZo49wufKlqIBXF1mwSm1SVRfFyipBGi0IPlLpZpbWj\nka7lRUKWxBiBHEObAc3RrCA1NB6/Fld0+tnwsrI8eeSyYz8DOOn8JNu20gmp0xO8\nqQ9rnZAyguWDMau5qJst4WY=\n-----END PRIVATE KEY-----\n",
+  "client_email": "firebase-adminsdk-u4yvj@smartfoodinventory.iam.gserviceaccount.com",
+  "client_id": "103784363587399410936",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/firebase-adminsdk-u4yvj%40smartfoodinventory.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}

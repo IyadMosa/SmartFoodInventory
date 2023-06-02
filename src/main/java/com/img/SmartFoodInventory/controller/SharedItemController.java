@@ -23,9 +23,10 @@ public class SharedItemController {
 
     @PostMapping("/share/{itemId}")
     public ResponseEntity<String> shareItem(Principal principal, @PathVariable long itemId,
-                                            @RequestParam(value = "quantity", defaultValue = "1") int quantity) {
+                                            @RequestParam(value = "quantity", defaultValue = "1") int quantity,
+                                            @RequestParam(value = "radius", defaultValue = "1") int radius) {
         String sharerUsername = principal.getName(); // Retrieve the username from the authenticated user
-        sharedItemService.shareItem(sharerUsername, itemId, quantity);
+        sharedItemService.shareItem(sharerUsername, itemId, quantity,radius);
         return ResponseEntity.ok("Item shared successfully");
 
     }

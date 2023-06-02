@@ -20,10 +20,13 @@ public class SharedItemService {
     private final UserService userService;
     private final ItemService itemService;
 
-    public SharedItemService(SharedItemRepository sharedItemRepository, UserService userService, ItemService itemService) {
+    private final FcmService fcmService;
+
+    public SharedItemService(SharedItemRepository sharedItemRepository, UserService userService, ItemService itemService, FcmService fcmService) {
         this.sharedItemRepository = sharedItemRepository;
         this.userService = userService;
         this.itemService = itemService;
+        this.fcmService = fcmService;
     }
 
     public List<SharedItem> getAvailableSharedItems(String username, int radiusKm) {
@@ -43,7 +46,7 @@ public class SharedItemService {
 
 
     @Transactional
-    public synchronized void shareItem(String sharerUsername, long itemId, int quantity) {
+    public synchronized void shareItem(String sharerUsername, long itemId, int quantity, int radius) {
         Item item = itemService.getById(itemId);
         if (item == null) {
             return;
@@ -60,6 +63,8 @@ public class SharedItemService {
 
         // Save the shared item
         sharedItemRepository.save(sharedItem);
+
+        sendSharedItemNotification(sharer, radius, item);
     }
 
     @Transactional
@@ -107,7 +112,7 @@ public class SharedItemService {
         // Update the item owner - user
         sharedItem.getItem().setUser(recipient);
         recipient.getItems().add(sharedItem.getItem());
-        sharedItem.getItem().appendMessageToTrackingLogs("Item transferred to new owner " + recipient.getUsername() + "." );
+        sharedItem.getItem().appendMessageToTrackingLogs("Item transferred to new owner " + recipient.getUsername() + ".");
 
 
         // Save the changes to the UserRepository and SharedItemRepository
@@ -128,4 +133,21 @@ public class SharedItemService {
     public List<SharedItem> getAllSharedItems() {
         return sharedItemRepository.findAll();
     }
+
+    private void sendSharedItemNotification(MyUser sharer, int radiusKm, Item item) {
+        List<MyUser> usersInRange = userService.getAllUsersInRange(sharer, radiusKm)
+                .stream()
+                .filter(myUser -> !myUser.getDeviceTokens().isEmpty())
+                .collect(Collectors.toList());
+
+        usersInRange.forEach(user -> {
+            // Send a notification to each device token using Firebase Cloud Messaging
+            for (String deviceToken : user.getDeviceTokens()) {
+                fcmService.sendNotification(deviceToken, "New Shared Item", "Item '" + item.getName() + "' has been shared by " + sharer.getUsername());
+            }
+
+        });
+
+    }
+
 }

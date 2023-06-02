@@ -1,7 +1,6 @@
 package com.img.SmartFoodInventory.model;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.img.SmartFoodInventory.util.geolocation.Address;
 import com.img.SmartFoodInventory.util.geolocation.Geolocation;
 import lombok.AllArgsConstructor;
@@ -43,4 +42,8 @@ public class MyUser {
     private Geolocation geolocation;
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<Item> items = new ArrayList<>();
+
+    @ElementCollection
+    private List<String> deviceTokens;
+
 }
