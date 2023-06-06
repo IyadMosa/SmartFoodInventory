@@ -86,6 +86,8 @@ public class SharedItemService {
         // Save the changes to the UserRepository and SharedItemRepository
         userService.save(recipient);
         sharedItemRepository.save(sharedItem);
+
+        sendNotificationToUser(sharedItem.getSharer(), "Request Shared Item", "User " + recipientUsername + " request the shared item " + sharedItem.getItem().getName());
     }
 
 
@@ -120,6 +122,9 @@ public class SharedItemService {
         userService.save(sharer);
         itemService.save(sharedItem.getItem());
         sharedItemRepository.save(sharedItem);
+
+        sendNotificationToUser(sharedItem.getSharer(), "Requested Shared Item Confirmed", "User " + sharer.getUsername() + " confirm the requested shared item " + sharedItem.getItem().getName());
+
     }
 
     public List<SharedItem> getRequestedSharedItems(String username) {
@@ -140,14 +145,20 @@ public class SharedItemService {
                 .filter(myUser -> !myUser.getDeviceTokens().isEmpty())
                 .collect(Collectors.toList());
 
+        String title = "New Shared Item";
+        String message = "Item '" + item.getName() + "' has been shared by " + sharer.getUsername();
         usersInRange.forEach(user -> {
-            // Send a notification to each device token using Firebase Cloud Messaging
-            for (String deviceToken : user.getDeviceTokens()) {
-                fcmService.sendNotification(deviceToken, "New Shared Item", "Item '" + item.getName() + "' has been shared by " + sharer.getUsername());
-            }
+            sendNotificationToUser(user, title, message);
 
         });
 
+    }
+
+    private void sendNotificationToUser(MyUser user, String title, String message) {
+        // Send a notification to each device token using Firebase Cloud Messaging
+        for (String deviceToken : user.getDeviceTokens()) {
+            fcmService.sendNotification(deviceToken, title, message);
+        }
     }
 
 }
