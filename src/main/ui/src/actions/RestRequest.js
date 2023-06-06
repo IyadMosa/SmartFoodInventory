@@ -15,6 +15,7 @@ export const RestRequest =
         return response.json();
       } else if (response.status >= 401 && !url.includes("login")) {
         localStorage.removeItem("token"); // Remove the token from localStorage
+        localStorage.removeItem("device-token"); // Remove the firebase device token from localStorage
         window.location.href = "/"; // Redirect to the login page
         return Promise.reject(response.error);
       } else {
